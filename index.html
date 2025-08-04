@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Split Payment App</title>
+  <link rel="stylesheet" href="css/index.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+  <header>
+    <h1>Split Payment App</h1>
+    <i class="fas fa-user-circle top-icon" id="userIcon"></i>
+  </header>
+
+  <main>
+    <section id="home-section" class="app-section active">
+      <div class="section-header">
+        <h2>My Groups</h2>
+        <button id="create-group-btn" class="create-group-btn">+ Create Group </button>
+      </div>
+      <div id="group-list" class="group-list"></div>
+      <div class="recent-activity">
+        <h3>Recent Activity</h3>
+        <ul id="activity-list"></ul>
+      </div>
+    </section>
+  </main>
+
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal">
+    <div class="modal-box">
+      <span class="close" id="closeLoginModal">&times;</span>
+      <h2>Login / Sign Up</h2>
+      <label for="username">Username</label>
+      <input type="text" id="username" placeholder="Enter your name" />
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Enter your email" />
+      <button id="loginBtn" class="submit-btn">Login</button>
+    </div>
+  </div>
+
+  <!-- Create Group Modal -->
+  <div id="create-group-modal" class="modal">
+    <div class="modal-box">
+      <span class="close" id="close-modal">&times;</span>
+      <h2>Create New Group</h2>
+      <label for="groupName">Group Name</label>
+      <input type="text" id="groupName" placeholder="Enter group name"/>
+      <div id="membersContainer">
+        <div class="member-row">
+          <input type="text" placeholder="Name" class="member-name">
+          <input type="email" placeholder="Email" class="member-email">
+        </div>
+      </div>
+      <button id="addMoreMembers" class="link-btn">+ Add More Members</button>
+      <label for="groupCategory">Category</label>
+      <select id="groupCategory">
+        <option value="Trip">Trip</option>
+        <option value="Home">Home</option>
+        <option value="Food">Food</option>
+        <option value="Other">Other</option>
+      </select>
+      <label for="groupDescription">Description</label>
+      <textarea id="groupDescription" placeholder="Add a description for your group"></textarea>
+      <button id="createGroupBtn" class="submit-btn">Create Group</button>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="bottom-nav-icon active" id="homeIcon"><i class="fas fa-home"></i><br>Home</a>
+    <a href="group.html" class="bottom-nav-icon" id="groupIcon"><i class="fas fa-users"></i><br>Groups</a>
+    <a href="#" id="openCreateGroup" class="bottom-nav-icon"><i class="fas fa-plus-circle"></i><br>Add</a>
+    <a href="balance.html" class="bottom-nav-icon"><i class="fas fa-wallet"></i><br>Balance</a>
+  </nav>
+
+  <script src="js/index.js"></script>
+</body>
+</html>
