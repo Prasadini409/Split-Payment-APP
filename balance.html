@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Balances</title>
+  <link rel="stylesheet" href="css/balance.css" />
+  <script defer src="js/balances.js"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header>
+    <h2 id="balanceTitle"><span class="back-arrow" id="backToGroup">&larr;</span> Group Name</h2>
+    <i class="fas fa-user-circle user-icon"></i>
+  </header>
+
+  <main>
+    <!---Summary Section --->
+    <section class="summary-section">
+      
+      <div class="summary-box">
+        <p>Total Owed</p>
+        <h2 id="totalOwed">$0.00</h2>
+      </div>
+      <div class="summary-box">
+        <p>Total Owe</p>
+        <h2 id="totalOwe">$0.00</h2>
+      </div>
+      <div class="summary-box">
+        <p>Net Balance</p>
+        <h2 id="netBalance">$0.00</h2>
+      </div>
+    </section>
+
+   <!---Settlements Section --->
+    <section class="section settlements-section">
+      <h3>Simplified Settlements</h3>
+      <button id="recordPaymentBtn">Record Payment</button>
+      <ul id="settlementsList"></ul>
+    </section>
+
+   <!---History Section --->
+    <section class="section history-section">
+      <h3>Transaction History</h3>
+      <ul id="historyList"></ul>
+    </section>
+  </main>
+
+   <!-- Record Payment Modal--->
+  <div class="modal" id="paymentModal">
+    <div class="modal-box">
+      <span class="close" id="closePaymentModal">&times;</span>
+      <h2>Record Payment</h2>
+      <label for="paymentFrom">From</label>
+      <select id="paymentFrom"></select>
+
+      <label for="paymentTo">To</label>
+      <select id="paymentTo"></select>
+
+      <label for="paymentAmount">Amount</label>
+      <input type="number" id="paymentAmount" placeholder="$0.00" />
+
+      <button id="submitPayment">Submit Payment</button>
+    </div>
+  </div>
+
+  <!-- Create Group Modal--->
+  <div class="modal" id="createGroupModal">
+    <div class="modal-box">
+      <span class="close" id="closeCreateGroupModal">&times;</span>
+      <h2>Create New Group</h2>
+      <label>Group Name</label>
+      <input type="text" id="newGroupName" placeholder="Enter group name" />
+
+      <label>Members (comma separated)</label>
+      <input type="text" id="newGroupMembers" placeholder="e.g. Alice, Bob, Charlie" />
+
+      <button id="createGroupBtn">Create Group</button>
+    </div>
+  </div>
+
+ <!--- Bottom Navigation --->
+  <nav class="bottom-nav">
+    <a href="index.html" class="bottom-nav-icon" id="homeIcon"><i class="fas fa-home"></i><br>Home</a>
+    <a href="group.html" class="bottom-nav-icon" id="groupIcon"><i class="fas fa-users"></i><br>Groups</a>
+    <a href="#" class="bottom-nav-icon" id="openCreateGroup"><i class="fas fa-plus-circle"></i><br>Add</a>
+    <a href="balance.html" class="bottom-nav-icon active" id="balanceIcon"><i class="fas fa-wallet"></i><br>Balance</a>
+  </nav>
+</body>
+</html>  
+

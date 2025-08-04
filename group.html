@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Group</title>
+  <link rel="stylesheet" href="css/group.css" />
+  <script defer src="js/group.js"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header>
+    <h2 id="groupTitle"><span class="back-arrow" id="backToHome">&larr;</span> Group</h2>
+    <i class="fas fa-user-circle user-icon" id="userIcon"></i>
+  </header>
+
+  <main id="mainContent">
+    <!-- Summary Section -->
+    <section class="summary-container">
+      <h3>Summary</h3>
+      <div class="summary-section">
+        <div class="summary-box" id="totalExpensesBox">
+          <p>Total Expenses</p>
+          <h2 id="totalExpenses">$0.00</h2>
+        </div>
+        <div class="summary-box">
+          <p>Your Balance</p>
+          <h2 id="yourBalance">$0.00</h2>
+        </div>
+        <div class="summary-box">
+          <p>Members</p>
+          <h2 id="memberCount">0</h2>
+        </div>
+      </div>
+    </section>
+
+    <!-- Members -->
+    <section class="members-section">
+      <h3>Members</h3>
+      <ul id="memberList"></ul>
+    </section>
+
+    <!-- Expenses -->
+    <section class="expenses-section">
+      <div class="expenses-header">
+        <h3>Expenses</h3>
+        <button id="addExpenseBtn">+ Add Expense</button>
+      </div>
+      <ul id="expenseList"></ul>
+    </section>
+
+    <!-- Fallback Message -->
+    <section class="no-group" id="noGroupMessage" style="display: none;">
+      <p>No Groups Created Yet</p>
+    </section>
+  </main>
+
+  <!-- Add Expense Modal -->
+  <div class="modal" id="expenseModal">
+    <div class="modal-box">
+      <span class="close" id="closeExpenseModal">&times;</span>
+      <h2>Add New Expense</h2>
+
+      <label>Description</label>
+      <input type="text" id="expenseDescription" placeholder="e.g. Lunch" />
+
+      <label>Amount</label>
+      <input type="number" id="expenseAmount" placeholder="$0.00" />
+
+      <label>Paid By</label>
+      <select id="paidBy"></select>
+
+      <label>Split Type</label>
+      <select id="splitType">
+        <option value="equal">Equal</option>
+      </select>
+
+      <button class="submit-btn" id="submitExpense">Add Expense</button>
+    </div>
+  </div>
+
+  <!-- Create Group Modal -->
+  <div class="modal" id="createGroupModal">
+    <div class="modal-box">
+      <span class="close" id="closeCreateGroupModal">&times;</span>
+      <h2>Create New Group</h2>
+      <label>Group Name</label>
+      <input type="text" id="newGroupName" placeholder="Enter group name" />
+
+      <label>Members (comma separated)</label>
+      <input type="text" id="newGroupMembers" placeholder="e.g. Alice, Bob, Charlie" />
+
+      <button id="createGroupBtn">Create Group</button>  
+    </div>
+  </div>
+
+  <!-- Login Modal -->
+  <div class="modal" id="loginModal">
+    <div class="modal-box">
+      <span class="close" id="closeLoginModal">&times;</span>
+      <h2>Login</h2>
+      <label>Username</label>
+      <input type="text" id="username" placeholder="Enter username" />
+      <label>Email</label>
+      <input type="email" id="email" placeholder="Enter email" />
+      <button id="loginBtn">Login</button>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="bottom-nav-icon" id="homeIcon"><i class="fas fa-home"></i><br>Home</a>
+    <a href="group.html" class="bottom-nav-icon active" id="groupIcon"><i class="fas fa-users"></i><br>Groups</a>
+    <a href="#" class="bottom-nav-icon" id="openCreateGroup"><i class="fas fa-plus-circle"></i><br>Add</a>
+    <a href="balance.html" class="bottom-nav-icon" id="balanceIcon"><i class="fas fa-wallet"></i><br>Balance</a>
+  </nav>
+</body>
+</html>
