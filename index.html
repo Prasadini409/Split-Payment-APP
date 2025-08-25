@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Split Payment App</title>
   <link rel="stylesheet" href="css/index.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
@@ -10,14 +10,17 @@
 <body>
   <header>
     <h1>Split Payment App</h1>
-    <i class="fas fa-user-circle top-icon" id="userIcon"></i>
+    <div id="userDisplay" style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+      <i class="fas fa-user-circle top-icon" id="userIcon"></i>
+      <span id="usernameDisplay" style="font-weight:600; color:#444;"></span>
+    </div>
   </header>
 
   <main>
     <section id="home-section" class="app-section active">
       <div class="section-header">
         <h2>My Groups</h2>
-        <button id="create-group-btn" class="create-group-btn">+ Create Group </button>
+        <button id="create-group-btn" class="create-group-btn">+ Create Group</button>
       </div>
       <div id="group-list" class="group-list"></div>
       <div class="recent-activity">
@@ -27,18 +30,41 @@
     </section>
   </main>
 
-  <!-- Login Modal -->
-  <div id="loginModal" class="modal">
-    <div class="modal-box">
-      <span class="close" id="closeLoginModal">&times;</span>
-      <h2>Login / Sign Up</h2>
-      <label for="username">Username</label>
-      <input type="text" id="username" placeholder="Enter your name" />
-      <label for="email">Email</label>
-      <input type="email" id="email" placeholder="Enter your email" />
-      <button id="loginBtn" class="submit-btn">Login</button>
-    </div>
+  <!-- Login/Signup Modal -->
+<div id="loginModal" class="modal">
+  <div class="modal-box">
+    <span class="close" id="closeLoginModal">&times;</span>
+
+    <!-- Login Form -->
+    <form id="loginForm" class="auth-form active">
+      <h2>Login</h2>
+      <label for="loginUsername">Username</label>
+      <input type="text" id="loginUsername" placeholder="Enter your username" autocomplete="off" />
+      <label for="loginPassword">Password</label>
+      <input type="password" id="loginPassword" placeholder="Enter your password" autocomplete="off" />
+      <button type="submit" class="submit-btn">Login</button>
+      <p style="margin-top:12px; font-size:0.9rem;">
+        Don't have an account? <a href="#" id="showSignup">Sign up</a>
+      </p>
+    </form>
+
+    <!-- Signup Form -->
+    <form id="signupForm" class="auth-form">
+      <h2>Sign Up</h2>
+      <label for="signupUsername">Username</label>
+      <input type="text" id="signupUsername" placeholder="Enter your username" autocomplete="off" />
+      <label for="signupEmail">Email</label>
+      <input type="email" id="signupEmail" placeholder="Enter your email" autocomplete="off" />
+      <label for="signupPassword">Password</label>
+      <input type="password" id="signupPassword" placeholder="Enter your password" autocomplete="off" />
+      <button type="submit" class="submit-btn">Sign Up</button>
+      <p style="margin-top:12px; font-size:0.9rem;">
+        Already have an account? <a href="#" id="showLogin">Login</a>
+      </p>
+    </form>
   </div>
+</div>
+
 
   <!-- Create Group Modal -->
   <div id="create-group-modal" class="modal">
@@ -49,8 +75,8 @@
       <input type="text" id="groupName" placeholder="Enter group name"/>
       <div id="membersContainer">
         <div class="member-row">
-          <input type="text" placeholder="Name" class="member-name">
-          <input type="email" placeholder="Email" class="member-email">
+          <input type="text" placeholder="Name" class="member-name" />
+          <input type="email" placeholder="Email" class="member-email" />
         </div>
       </div>
       <button id="addMoreMembers" class="link-btn">+ Add More Members</button>
@@ -72,7 +98,7 @@
     <a href="index.html" class="bottom-nav-icon active" id="homeIcon"><i class="fas fa-home"></i><br>Home</a>
     <a href="group.html" class="bottom-nav-icon" id="groupIcon"><i class="fas fa-users"></i><br>Groups</a>
     <a href="#" id="openCreateGroup" class="bottom-nav-icon"><i class="fas fa-plus-circle"></i><br>Add</a>
-    <a href="balance.html" class="bottom-nav-icon"><i class="fas fa-wallet"></i><br>Balance</a>
+    <a href="balance.html" class="bottom-nav-icon" id="balanceIcon"><i class="fas fa-wallet"></i><br>Balance</a>
   </nav>
 
   <script src="js/index.js"></script>
