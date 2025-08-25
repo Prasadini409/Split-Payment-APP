@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // --- Your existing variable declarations remain unchanged ---
   const modal = document.getElementById("create-group-modal");
   const openModalBtn = document.getElementById("create-group-btn");
   const openCreateGroupIcon = document.getElementById("openCreateGroup");
@@ -10,50 +11,149 @@ document.addEventListener("DOMContentLoaded", () => {
   const activityList = document.getElementById("activity-list");
 
   const loginModal = document.getElementById("loginModal");
-  const loginBtn = document.getElementById("loginBtn");
-  const userIcon = document.getElementById("userIcon");
   const closeLoginModal = document.getElementById("closeLoginModal");
+  const userIcon = document.getElementById("userIcon");
+  const usernameDisplay = document.getElementById("usernameDisplay");
+
+  const loginForm = document.getElementById("loginForm");
+  const signupForm = document.getElementById("signupForm");
+  const showSignupLink = document.getElementById("showSignup");
+  const showLoginLink = document.getElementById("showLogin");
 
   let editingGroupId = null;
 
-
-// GET request
-fetch('https://6866093989803950dbb10192.mockapi.io/api/groups/')
-  .then(response => response.json()) // Convert to JSON
-  .then(data => console.log(data))   // Handle the data
-  .catch(error => console.error('Error:', error)); // Error handling
-
-
-
-  // POST request
-fetch('https://jsonplaceholder.typicode.com/posts', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-    title: 'Hello API',
-    body: 'This is a test',
-    userId: 1
-  })
-})
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.error('Error:', error));
-
-
-
-
-
-  // Show login modal on load if no user
+  // Check current user
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   if (!currentUser) {
+    showLoginForm();
     loginModal.classList.add("show");
   }
 
+  userIcon.addEventListener("click", () => {
+    showLoginForm();
+    loginModal.classList.add("show");
+  });
+
+  closeLoginModal.addEventListener("click", () => {
+    loginModal.classList.remove("show");
+  });
+
+  showSignupLink.addEventListener("click", (e) => {
+    e.preventDefault();
+    showSignupForm();
+  });
+
+  showLoginLink.addEventListener("click", (e) => {
+    e.preventDefault();
+    showLoginForm();
+  });
+
+  function showLoginForm() {
+    loginForm.classList.add("active");
+    signupForm.classList.remove("active");
+  }
+
+  function showSignupForm() {
+    signupForm.classList.add("active");
+    loginForm.classList.remove("active");
+  }
+
+  // --- API CALLS ---
+  async function signUp(username, email, password) {
+    try {
+      const res = await fetch("http://10.196.53.165:8000/api/register/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, email, password })
+      });
+
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.error || "Signup failed");
+      }
+
+      const data = await res.json();
+      alert("Signup successful! Please login.");
+      signupForm.reset();
+      showLoginForm();
+      return data;
+    } catch (err) {
+      alert("Signup Failed: " + err.message);
+    }
+  }
+
+  async function login(username, password) {
+    try {
+      const res = await fetch("http://10.196.53.165:8000/api/login/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password })
+      });
+
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.error || "Login failed");
+      }
+
+      const data = await res.json();
+
+      // Save user info & token
+      localStorage.setItem("authToken", data.token);
+      localStorage.setItem("currentUser", JSON.stringify({ name: username, email: data.email || "" }));
+
+      alert(`Welcome back, ${username}!`);
+      loginModal.classList.remove("show");
+      updateUIForUser();
+      updateGroupButtonsState();
+      loginForm.reset();
+      return data;
+    } catch (err) {
+      alert("Login Failed: " + err.message);
+    }
+  }
+
+  // --- FORM SUBMISSIONS ---
+  loginForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const username = document.getElementById("loginUsername").value.trim();
+    const password = document.getElementById("loginPassword").value.trim();
+
+    if (!username || !password) {
+      alert("Please enter username and password.");
+      return;
+    }
+
+    // Call backend login
+    login(username, password);
+  });
+
+  signupForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const username = document.getElementById("signupUsername").value.trim();
+    const email = document.getElementById("signupEmail").value.trim();
+    const password = document.getElementById("signupPassword").value.trim();
+
+    if (!username || !email || !password) {
+      alert("Please fill all fields.");
+      return;
+    }
+
+    // Call backend signup
+    signUp(username, email, password);
+  });
+
+  function updateUIForUser() {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (currentUser) {
+      usernameDisplay.textContent = currentUser.name;
+    } else {
+      usernameDisplay.textContent = "";
+    }
+  }
+
   function updateGroupButtonsState() {
-    const loggedIn = JSON.parse(localStorage.getItem("currentUser"));
-    if (!loggedIn) {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (!currentUser) {
       openModalBtn?.setAttribute("disabled", true);
       openCreateGroupIcon?.classList.add("disabled");
     } else {
@@ -62,34 +162,12 @@ fetch('https://jsonplaceholder.typicode.com/posts', {
     }
   }
 
-  updateGroupButtonsState();
-
-  userIcon.addEventListener("click", () => {
-    loginModal.classList.add("show");
-  });
-
-  closeLoginModal.addEventListener("click", () => {
-    loginModal.classList.remove("show");
-  });
-
-  loginBtn.addEventListener("click", () => {
-    const username = document.getElementById("username").value.trim();
-    const email = document.getElementById("email").value.trim();
-    if (!username || !email) {
-      alert("Please enter your username and email.");
-      return;
-    }
-    localStorage.setItem("currentUser", JSON.stringify({ name: username, email }));
-    loginModal.classList.remove("show");
-    alert(`Welcome, ${username}!`);
-    updateGroupButtonsState();
-  });
-
   function handleCreateGroupClick() {
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
     if (!currentUser) {
       alert("Please log in first.");
       loginModal.classList.add("show");
+      showLoginForm();
       return;
     }
     showModal();
@@ -108,6 +186,8 @@ fetch('https://jsonplaceholder.typicode.com/posts', {
     addMemberRow();
   });
 
+  // --- The rest of your create group, activities, and UI functions remain unchanged ---
+  // ... [KEEP YOUR ORIGINAL FUNCTIONS FROM HERE ON] ...
   createGroupBtn.addEventListener("click", () => {
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
     if (!currentUser) return alert("Please login first.");
@@ -228,7 +308,6 @@ fetch('https://jsonplaceholder.typicode.com/posts', {
   }
 
   function renderActivities() {
-    const activityList = document.getElementById("activity-list");
     const log = JSON.parse(localStorage.getItem("activityLog") || "[]");
     activityList.innerHTML = "";
 
@@ -283,7 +362,9 @@ fetch('https://jsonplaceholder.typicode.com/posts', {
     resetForm();
   }
 
-  // Init
+  // Initialize UI
   renderGroups();
   renderActivities();
+  updateUIForUser();
+  updateGroupButtonsState();
 });
