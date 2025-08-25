@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderGroup();
 });
 
+
 function calculateMemberBalances(group) {
   const balances = {};
   group.members.forEach(m => balances[m.name] = 0);
@@ -194,6 +195,29 @@ function highlightNavIcon(active) {
     }
   });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
