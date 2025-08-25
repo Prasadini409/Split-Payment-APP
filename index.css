@@ -23,6 +23,22 @@ header {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
+header {
+  position: fixed;        /* Sticks it to the viewport */
+  top: 0;
+  left: 0;
+  width: 100%;            /* Stretch full width */
+  z-index: 1000;          /* Stays above content */
+}
+
+/* Add spacing so content isn’t hidden under the header */
+body {
+  padding-top: 70px;      /* Adjust if header is taller */
+}
+
+
+
+
 header h1 {
   font-size: 1rem;
   font-weight: 600;
@@ -354,3 +370,30 @@ body {
   font-family: inherit;
   font-size: inherit;
 }
+
+
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+}
+
+.modal.show {
+  display: flex;
+}
+
+/* ... all your other styles remain unchanged ... */
+
+
+.auth-form {
+  display: none;
+}
+.auth-form.active {
+  display: block;
+}
+
