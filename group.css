@@ -18,6 +18,21 @@ header {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #e3f2fd;   /* keep it solid so content doesn't overlap visually */
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* optional: subtle shadow */
+}
+
+/* Push page content below the header */
+body {
+  padding-top: 70px;   /* Adjust if your header height differs */
+}
+
 header h2 {
   font-size: 1.2rem;
   display: flex;
